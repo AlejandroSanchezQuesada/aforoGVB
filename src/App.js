@@ -3,6 +3,7 @@ import "./App.css";
 import Landing from "./components/Landing";
 import Login from "./components/Login";
 import Monitor from "./components/Monitor";
+import MonitorSecciones from "./components/MonitorSecciones";
 
 function App() {
   return (
@@ -12,6 +13,10 @@ function App() {
           <Route path="/monitor">
             <Monitor></Monitor>
           </Route>
+          <Route path="/secciones/:nLocal">
+            <MonitorSecciones></MonitorSecciones>
+          </Route>
+
           <Route path="/login">
             <Login></Login>
           </Route>

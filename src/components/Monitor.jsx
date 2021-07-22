@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, BrowserRouter, Switch, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Contenedor = styled.div`
   font-family: "Parking";
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: ${(props) => props.colorPrincipal};
   color: ${(props) => props.colorSecundario};
 `;
@@ -14,11 +14,37 @@ const Contenedor = styled.div`
 const Navegacion = styled.div`
   display: grid;
   grid-template-columns: 80vw 10vw;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 100%;
+  }
 `;
 
+const ContenedorLocales = styled.div`
+  margin-top: 2%;
+  padding-bottom: 5%;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  text-align: center;
+  @media (max-width: 600px) {
+    grid-template-columns: 100%;
+  }
+`;
+
+const DivTemas = styled.div`
+  display: flex;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+`;
 const Titulo = styled.h1`
   font-size: 8vw;
   text-align: center;
+`;
+
+const EnlaceLocal = styled.div`
+  cursor: pointer;
+  border: solid 1px black;
 `;
 
 const HeaderImg = styled.img`
@@ -36,6 +62,7 @@ function Monitor() {
   const [locales, setLocales] = useState([]);
   const [temas, setTemas] = useState([]);
   const [temaElegido, setTemaElegido] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     axios
@@ -61,14 +88,24 @@ function Monitor() {
   }, []);
 
   const listaLocales = locales.map((local) => (
-    <div key={local.id}>
+    <EnlaceLocal
+      key={local.id}
+      onClick={() => {
+        history.push({
+          pathname: "/secciones/" + local.id,
+          state: {
+            // location state
+            update: true,
+          },
+        });
+      }}
+    >
       <HeaderImg
-        /* src={"http://apiaforo.test/" + local.logo} */
         src="https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,g=0.5x0.5,f=auto/b5bd34054bc849159d949d50021d8926.png"
         alt={local.nombre}
       ></HeaderImg>
       <h2>{local.nombre}</h2>
-    </div>
+    </EnlaceLocal>
   ));
 
   const cargaTemas = temas.map((tema) => {
@@ -83,7 +120,12 @@ function Monitor() {
     if (cargado) {
       return listaLocales;
     } else {
-      return <p>Cargando Locales</p>;
+      return (
+        <p>
+          Cargando Locales... Esto debería tardar menos de 10 segundos. Si pasa
+          este tiempo refresca la página
+        </p>
+      );
     }
   }
 
@@ -117,14 +159,9 @@ function Monitor() {
     >
       <Navegacion>
         <Titulo>Selecciona Local</Titulo>
-        <div>
-          <span>Temas</span>
-          <i className="fas fa-palette"></i>
-          {cargameLosTemas()}
-        </div>
+        <DivTemas>{cargameLosTemas()}</DivTemas>
       </Navegacion>
-
-      {cargaLocales()}
+      <ContenedorLocales>{cargaLocales()}</ContenedorLocales>
     </Contenedor>
   );
 }
