@@ -2,3 +2,8 @@
   font-family: parking;
   src: url("assets/fonts/fuenteParking.OTF") format("opentype");
 }
+
+@font-face {
+  font-family: ataper;
+  src: url("assets/fonts/MabryPro.otf") format("opentype");
+}
