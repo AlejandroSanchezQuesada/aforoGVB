@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, BrowserRouter, Switch, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Contenedor = styled.div`
@@ -38,19 +38,18 @@ const DivTemas = styled.div`
   align-items: center;
 `;
 const Titulo = styled.h1`
-  font-size: 8vw;
+  font-size: 5vw;
   text-align: center;
 `;
 
 const EnlaceLocal = styled.div`
   cursor: pointer;
-  border: solid 1px black;
 `;
 
 const HeaderImg = styled.img`
   width: 100px;
-  height: 100px;
-  border: 1px solid blue;
+  height: 90px;
+  margin-top: 10px;
 `;
 
 HeaderImg.defaultProps = {
@@ -96,6 +95,8 @@ function Monitor() {
           state: {
             // location state
             update: true,
+            nLocal: local.id,
+            data: "hola",
           },
         });
       }}
@@ -158,7 +159,7 @@ function Monitor() {
       colorSecundario={temaElegido.colorSecundario}
     >
       <Navegacion>
-        <Titulo>Selecciona Local</Titulo>
+        <Titulo>Lista de Locales</Titulo>
         <DivTemas>{cargameLosTemas()}</DivTemas>
       </Navegacion>
       <ContenedorLocales>{cargaLocales()}</ContenedorLocales>
