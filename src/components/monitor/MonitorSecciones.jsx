@@ -50,6 +50,10 @@ const TituloAforoTotal = styled(Titulo)`
   }
 `;
 
+const TituloSeccion2 = styled(TituloSeccion)`
+  font-size: 4vw;
+`;
+
 const HeaderImg = styled.img`
   width: 20vw;
   height: 5vh;
@@ -115,12 +119,12 @@ function MonitorSecciones(props) {
   const mapearSecciones = secciones.map((seccion) => {
     return (
       <div key={seccion.id}>
-        <TituloSeccion colorSecundario3={temaElegido.colorSecundario3}>
+        <TituloSeccion2 colorSecundario3={temaElegido.colorSecundario3}>
           {seccion.nombre}
-        </TituloSeccion>
-        <TituloSeccion colorSecundario3={temaElegido.colorSecundario3}>
+        </TituloSeccion2>
+        <TituloSeccion2 colorSecundario3={temaElegido.colorSecundario3}>
           {seccion.aforo}
-        </TituloSeccion>
+        </TituloSeccion2>
       </div>
     );
   });
