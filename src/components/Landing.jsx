@@ -14,14 +14,16 @@ const Contenedor = styled.div`
 `;
 
 const Bloque = styled.div`
-  background-color: yellow;
+  background-color: #1e1e1e;
+  color: white;
   justify-content: center;
   display: flex;
   align-items: center;
 `;
 
 const Bloque2 = styled(Bloque)`
-  background-color: green;
+  background-color: white;
+  color: #1e1e1e;
 `;
 
 const Titulo = styled.h1`

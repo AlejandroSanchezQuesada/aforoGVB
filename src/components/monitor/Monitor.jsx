@@ -7,8 +7,8 @@ const Contenedor = styled.div`
   font-family: "Parking";
   width: 100vw;
   min-height: 100vh;
-  background-color: ${(props) => props.colorPrincipal};
-  color: ${(props) => props.colorSecundario};
+  background-color: #e5f1fb;
+  color: #1e1e1e;
 `;
 
 const Navegacion = styled.div`
@@ -154,10 +154,7 @@ function Monitor() {
   }
 
   return (
-    <Contenedor
-      colorPrincipal={temaElegido.colorPrincipal}
-      colorSecundario={temaElegido.colorSecundario}
-    >
+    <Contenedor>
       <Navegacion>
         <Titulo>Lista de Locales</Titulo>
         <DivTemas>{cargameLosTemas()}</DivTemas>
