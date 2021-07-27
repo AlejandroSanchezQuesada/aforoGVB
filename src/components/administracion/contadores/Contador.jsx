@@ -5,10 +5,12 @@ import styled from "styled-components";
 
 const Contenedor = styled.div`
   width: 100%;
+  height: 100vh;
   display: grid;
   grid-template-columns: 100%;
   font-family: "parking";
   text-align: center;
+  background-color: #e5f1fb;
 `;
 
 const GridBotones = styled.div`
@@ -26,32 +28,84 @@ const Button = styled.button`
   font-size: 7vh;
   border: solid #00b74a 1px;
   border-radius: 10px;
-  &:focus {
-    -webkit-box-shadow: inset 0px 0px 10px #00b74a;
-    -moz-box-shadow: inset 0px 0px 10px #00b74a;
-    box-shadow: inset 0px 0px 10px #00b74a;
-    outline: none;
+  &:active {
+    transition: 0.3s;
+    background-color: #107036;
+  }
+`;
+
+const ButtonMenos = styled(Button)`
+  background-color: #fde406;
+  border: solid #fde406 1px;
+  &:active {
+    transition: 0.3s;
+    background-color: #a39301;
+  }
+`;
+
+const ButtonDelete = styled(Button)`
+  background-color: #fd2b06;
+  border: solid #fd2b06 1px;
+  &:active {
+    transition: 0.3s;
+    background-color: #c4260a;
+  }
+`;
+
+const Titulo = styled.h1`
+  font-size: 6vw;
+
+  @media (max-width: 600px) {
+    font-size: 50px;
   }
 `;
 
 function Contador(props) {
+  axios.defaults.headers.common["Authorization"] =
+    localStorage.getItem("token");
+
   const location = useLocation();
   const [aforo, setAforo] = useState(location.state.seccionAforo);
+
+  function incrementarContador() {
+    axios
+      .post("http://192.168.1.98/api/incrementarContador", {
+        id: location.state.seccionId,
+      })
+      .then(function (response) {
+        setAforo(response.data.aforo);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  function decrementarContador() {
+    axios
+      .post("http://192.168.1.98/api/decrementarContador", {
+        id: location.state.seccionId,
+      })
+      .then(function (response) {
+        setAforo(response.data.aforo);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   return (
     <Contenedor>
       <div>
-        <h1>{location.state.seccionNombre}</h1>
+        <Titulo>{location.state.seccionNombre}</Titulo>
       </div>
       <div>
-        <h1>{aforo}</h1>
+        <Titulo>{aforo}</Titulo>
       </div>
       <GridBotones>
-        <Button>+</Button>
-        <Button>-</Button>
-        <Button>
+        <Button onClick={incrementarContador}>+</Button>
+        <ButtonMenos onClick={decrementarContador}>-</ButtonMenos>
+        <ButtonDelete>
           <i className="fas fa-trash"></i>
-        </Button>
+        </ButtonDelete>
       </GridBotones>
       <div>Volver atrás</div>
     </Contenedor>
