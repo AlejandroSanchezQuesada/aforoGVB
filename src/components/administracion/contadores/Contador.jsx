@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -107,7 +107,7 @@ function Contador(props) {
           <i className="fas fa-trash"></i>
         </ButtonDelete>
       </GridBotones>
-      <div>Volver atrás</div>
+      <Link to={"/panel"}>Volver atrás</Link>
     </Contenedor>
   );
 }

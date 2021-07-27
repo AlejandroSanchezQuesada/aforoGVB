@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -7,8 +7,8 @@ const Contenedor = styled.div`
   font-family: "parking";
   width: 100vw;
   height: 100vh;
-  background-color: ${(props) => props.colorPrincipal};
-  color: ${(props) => props.colorSecundario};
+  background-color: ${(props) => props.colorprincipal};
+  color: ${(props) => props.colorsecundario};
 `;
 
 const ContenedorLocal = styled.div`
@@ -68,7 +68,6 @@ function MonitorSecciones(props) {
   const [local, setLocal] = useState([]);
   const [secciones, setSecciones] = useState([]);
   const [temaElegido, setTemaElegido] = useState("");
-  const [aforoTotal, setAforoTotal] = useState(0);
 
   /* Obtener Local y cargar tema */
   useEffect(() => {
@@ -130,7 +129,7 @@ function MonitorSecciones(props) {
   });
 
   function contadorAforoTotal() {
-    let n = aforoTotal;
+    let n = 0;
     secciones.forEach((seccion) => {
       n += seccion.aforo;
     });
@@ -148,11 +147,11 @@ function MonitorSecciones(props) {
 
   return (
     <Contenedor
-      colorPrincipal={temaElegido.colorPrincipal}
-      colorSecundario={temaElegido.colorSecundario}
+      colorprincipal={temaElegido.colorPrincipal}
+      colorsecundario={temaElegido.colorSecundario}
     >
       <ContenedorLocal>
-        <div colorSecundario2={temaElegido.colorSecundario2}>
+        <div colorsecundario2={temaElegido.colorSecundario2}>
           {cargaLocal()}
           <TituloAforoTotal colorSecundario2={temaElegido.colorSecundario2}>
             AFORO TOTAL {contadorAforoTotal()}

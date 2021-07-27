@@ -50,7 +50,7 @@ function NavegacionPanel(props) {
     } else {
       return (
         <ContenedorMobile onClick={toggleMenu}>
-          <i class="fas fa-bars"></i>
+          <i className="fas fa-bars"></i>
           <ElementosMobile showMenuMobile={showMenuMobile}>
             {children}
           </ElementosMobile>

@@ -1,7 +1,4 @@
 import styled from "styled-components";
-import { useHistory } from "react-router";
-import axios from "axios";
-import { useState, useEffect } from "react";
 
 /* Componentes */
 import NavegacionPanel from "./UI/NavegacionPanel";
@@ -26,19 +23,6 @@ const Titulo = styled.div`
 `;
 
 function Panel() {
-  const history = useHistory();
-
-  /*  function aContadores() {
-    history.push({
-      pathname: "/contador/" + seccion.id,
-      state: {
-        // location state
-        update: true,
-        seccionId: local.id,
-      },
-    });
-  } */
-
   return (
     <Contenedor>
       <NavegacionPanel>

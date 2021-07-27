@@ -60,7 +60,7 @@ function Monitor() {
   const [cargado, setCargado] = useState(false);
   const [locales, setLocales] = useState([]);
   const [temas, setTemas] = useState([]);
-  const [temaElegido, setTemaElegido] = useState("");
+  //const [temaElegido, setTemaElegido] = useState("");
   const history = useHistory();
 
   useEffect(() => {
@@ -83,7 +83,7 @@ function Monitor() {
         console.log(error);
       });
 
-    setTemaElegido(JSON.parse(localStorage.getItem("tema")));
+    //setTemaElegido(JSON.parse(localStorage.getItem("tema")));
   }, []);
 
   const listaLocales = locales.map((local) => (
@@ -133,7 +133,7 @@ function Monitor() {
   function temaActual(temaAGuardar) {
     let tema = temas.find((temas) => temas.id == temaAGuardar);
     localStorage.setItem("tema", JSON.stringify(tema));
-    setTemaElegido(JSON.parse(localStorage.getItem("tema")));
+    //setTemaElegido(JSON.parse(localStorage.getItem("tema")));
   }
 
   function cargameLosTemas() {
