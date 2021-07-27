@@ -25,6 +25,14 @@ const DivSeccion = styled.div`
   color: white;
   width: 80%;
   margin: 10%;
+  cursor: pointer;
+  border-radius: 5px;
+  border: solid 2px lightgray;
+
+  &:hover {
+    transition: 0.7s;
+    opacity: 0.9;
+  }
 
   @media (max-width: 600px) {
     padding-top: 5%;

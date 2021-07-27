@@ -102,7 +102,8 @@ function Monitor() {
       }}
     >
       <HeaderImg
-        src="https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,g=0.5x0.5,f=auto/b5bd34054bc849159d949d50021d8926.png"
+        //src="https://img.poki.com/cdn-cgi/image/quality=78,width=314,height=314,fit=cover,g=0.5x0.5,f=auto/b5bd34054bc849159d949d50021d8926.png"
+        src={local.logo}
         alt={local.nombre}
       ></HeaderImg>
       <h2>{local.nombre}</h2>

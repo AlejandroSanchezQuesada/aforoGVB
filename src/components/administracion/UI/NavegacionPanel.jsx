@@ -15,6 +15,7 @@ const Contenedor = styled.div`
 `;
 
 const ContenedorMobile = styled.div`
+  background-color: lightgray;
   display: grid;
   width: 100%;
   grid-template-columns: 100%;
