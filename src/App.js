@@ -5,6 +5,7 @@ import Login from "./components/login/Login";
 import Monitor from "./components/monitor/Monitor";
 import MonitorSecciones from "./components/monitor/MonitorSecciones";
 import Panel from "./components/administracion/Panel";
+import Contador from "./components/administracion/contadores/Contador";
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
           </Route>
           <Route path="/secciones/:nLocal">
             <MonitorSecciones></MonitorSecciones>
+          </Route>
+          <Route path="/contador/:seccionId">
+            <Contador></Contador>
           </Route>
           <Route path="/login">
             <Login></Login>

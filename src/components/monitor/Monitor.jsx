@@ -65,7 +65,7 @@ function Monitor() {
 
   useEffect(() => {
     axios
-      .get("http://apiaforo.test/api/locales")
+      .get("http://192.168.1.98/api/locales")
       .then(function (response) {
         setLocales(response.data.data);
         setCargado(true);
@@ -75,7 +75,7 @@ function Monitor() {
       });
 
     axios
-      .get("http://apiaforo.test/api/temas")
+      .get("http://192.168.1.98/api/temas")
       .then(function (response) {
         setTemas(response.data.data);
       })

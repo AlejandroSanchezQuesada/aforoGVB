@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 const Contenedor = styled.div`
@@ -15,7 +15,7 @@ const Contenedor = styled.div`
   text-align: center;
 `;
 
-const ContenedorLogin = styled.form`
+const ContenedorLogin = styled.div`
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 10% 10% 10%;
@@ -65,12 +65,12 @@ function Login() {
     console.log(email.current.value);
     console.log(password.current.value);
     axios
-      .post("http://apiaforo.test/api/login", {
+      .post("http://192.168.1.98/api/login", {
         email: email.current.value,
         password: password.current.value,
       })
       .then(function (response) {
-        localStorage.setItem("token", "Bearer" + response.data.token);
+        localStorage.setItem("token", "Bearer " + response.data.token);
         logeado();
       })
       .catch(function (error) {
@@ -84,7 +84,7 @@ function Login() {
   return (
     <Contenedor>
       <TituloLogin>Inicia sesión para administrar el aforo</TituloLogin>
-      <ContenedorLogin onSubmit={logearse} action="#">
+      <ContenedorLogin>
         <ContenedorInput>
           <InputEstilos
             ref={email}
@@ -102,7 +102,7 @@ function Login() {
         </ContenedorInput>
 
         <DivCentrarBoton>
-          <BotonLogin type="submit">Iniciar Sesión</BotonLogin>
+          <BotonLogin onClick={logearse}>Iniciar Sesión</BotonLogin>
         </DivCentrarBoton>
       </ContenedorLogin>
       <p>

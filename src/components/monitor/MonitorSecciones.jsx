@@ -75,7 +75,7 @@ function MonitorSecciones(props) {
     setTemaElegido(JSON.parse(localStorage.getItem("tema")));
 
     axios
-      .post("http://apiaforo.test/api/local", {
+      .post("http://192.168.1.98/api/local", {
         id: nLocal,
       })
       .then(function (response) {
@@ -89,7 +89,7 @@ function MonitorSecciones(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       axios
-        .post("http://apiaforo.test/api/getSeccionesLocal", {
+        .post("http://192.168.1.98/api/getSeccionesLocal", {
           local: nLocal,
         })
         .then(function (response) {
