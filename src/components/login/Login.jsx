@@ -26,6 +26,7 @@ const TituloLogin = styled.div`
 `;
 
 const BotonLogin = styled.button`
+  cursor: pointer;
   color: white;
   border: solid 1px white;
   border-radius: 5px;

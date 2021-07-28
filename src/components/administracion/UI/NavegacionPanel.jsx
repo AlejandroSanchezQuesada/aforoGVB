@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Contenedor = styled.div`
   display: grid;
-  grid-template-columns: 10vw repeat(auto-fill, 10vw) 10vw;
+  grid-template-columns: repeat(auto-fill, 15%);
   width: 100%;
   height: 50px;
   background-color: lightgray;

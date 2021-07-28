@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useLocation } from "react-router";
 
 const NavOpciones = styled.div`
   display: grid;
@@ -26,23 +27,23 @@ const Opciones = styled.div`
   }
 `;
 
-function SeccionCRUDFooter() {
+const SeccionCRUDFooter = (props) => {
   return (
     <NavOpciones>
-      <Opciones>
+      <Opciones onClick={props.toggleLocales}>
         <i className="fas fa-store-alt"></i>
         <p>Locales</p>
       </Opciones>
-      <Opciones>
+      <Opciones onClick={props.toggleSecciones}>
         <i className="fas fa-people-arrows"></i>
         <p>Secciones</p>
       </Opciones>
-      <Opciones>
+      <Opciones onClick={props.toggleUsuarios}>
         <i className="fas fa-user-cog"></i>
         <p>Usuarios</p>
       </Opciones>
     </NavOpciones>
   );
-}
+};
 
 export default SeccionCRUDFooter;
