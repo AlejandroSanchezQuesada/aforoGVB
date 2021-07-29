@@ -8,10 +8,11 @@ import SeccionCRUD from "./UI/SeccionCRUD";
 const Contenedor = styled.div`
   font-family: "ataper";
   background-color: #c7d2fe;
+  height: 100vh;
 `;
 
 const ContenedorSecciones = styled.div`
-  padding: 50px;
+  padding-top: 50px;
   margin-left: 250px;
 
   @media (max-width: 600px) {
@@ -25,7 +26,7 @@ function Panel() {
       <NavegacionPanel></NavegacionPanel>
 
       <ContenedorSecciones>
-        <SeccionContadores></SeccionContadores>
+        {/* <SeccionContadores></SeccionContadores> */}
         <SeccionCRUD></SeccionCRUD>
       </ContenedorSecciones>
     </Contenedor>

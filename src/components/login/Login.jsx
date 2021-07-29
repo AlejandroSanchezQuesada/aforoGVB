@@ -51,8 +51,13 @@ const InputEstilos = styled.input`
   width: 20vw;
   border-radius: 5px;
   border: solid 1px #1e1e1e;
+  background-color: white;
   @media (max-width: 600px) {
     width: 60vw;
+  }
+
+  &:focus {
+    background-color: white;
   }
 `;
 
@@ -63,8 +68,6 @@ function Login() {
   const history = useHistory();
 
   function logearse() {
-    console.log(email.current.value);
-    console.log(password.current.value);
     axios
       .post("http://192.168.1.98/api/login", {
         email: email.current.value,
@@ -72,6 +75,7 @@ function Login() {
       })
       .then(function (response) {
         localStorage.setItem("token", "Bearer " + response.data.token);
+        localStorage.setItem("username", email.current.value);
         logeado();
       })
       .catch(function (error) {

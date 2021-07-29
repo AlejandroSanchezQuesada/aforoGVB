@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const Contenedor = styled.div`
   display: ${(props) => props.visible};
@@ -8,7 +8,7 @@ const Contenedor = styled.div`
 
 const TablaLocales = styled.table`
   width: 100%;
-  background-color: #e5f1fb;
+  background-color: #c7d2fe;
   text-align: center;
   overflow-y: scroll;
   height: 80vh;
@@ -21,14 +21,10 @@ const TablaLocales = styled.table`
 const CabeceraTablaLocales = styled.th``;
 
 const FilaTablaLocales = styled.tr`
-  border-top: solid 1px black;
-  border-bottom: solid 1px black;
-  cursor: pointer;
   transition: 0.3s;
   &:hover {
-    background-color: #1e1e1e;
+    background-color: #1e293b;
     color: white;
-    border-color: white;
   }
 `;
 
@@ -37,33 +33,59 @@ const ColumnaTablaLocales = styled.td`
   padding-bottom: 1%;
 `;
 
-const Opciones = styled.div`
-  display: grid;
-  grid-template-columns: 60% 40%;
-  text-align: right;
-  background-color: white;
-`;
-
-const CrearBoton = styled.button`
-  background-color: green;
-  border: solid 1px black;
-  border-radius: 5px;
-  padding: 2%;
-  margin-right: 5%;
+const ColumnaOpciones = styled(ColumnaTablaLocales)`
   cursor: pointer;
-  &:hover {
-    opacity: 0.9;
-  }
-`;
-const ModificarBoton = styled(CrearBoton)`
-  background-color: #ffd900;
 `;
 
-const EliminarBoton = styled(CrearBoton)`
-  background-color: red;
-  &:hover {
-    color: white;
-  }
+const BarraOpciones = styled.div`
+  width: 100%;
+  height: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #1e293b;
+  text-align: right;
+`;
+
+const Boton = styled.button`
+  cursor: pointer;
+  color: white;
+  background-color: #696ae5;
+  border: solid 1px transparent;
+  margin-right: 10px;
+  border-radius: 5px;
+  height: 100%;
+  width: 100px;
+`;
+
+const BotonWarning = styled(Boton)`
+  background-color: #f59e0b;
+`;
+
+const BotonDanger = styled(Boton)`
+  background-color: #f43f5e;
+`;
+
+const Modal = styled.div`
+  padding: 2%;
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  background-color: #696ae5;
+  display: grid;
+  grid-template-columns: 100%;
+  text-align: center;
+`;
+
+const Input = styled.input`
+  width: 80%;
+  margin-left: 10%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 `;
 
 function LocalesCRUD(props) {
@@ -71,6 +93,9 @@ function LocalesCRUD(props) {
     localStorage.getItem("token");
 
   const [locales, setLocales] = useState([]);
+  const nombreLocal = useRef();
+  const logoLocal = useRef();
+  const administrador = useRef();
 
   function getLocales() {
     // Make a request for a user with a given ID
@@ -91,6 +116,20 @@ function LocalesCRUD(props) {
       });
   }
 
+  function crearLocal() {
+    axios
+      .post("http://192.168.1.98/api/locales", {
+        nombre: nombreLocal,
+        logo: logoLocal,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
     getLocales();
   }, []);
@@ -102,33 +141,35 @@ function LocalesCRUD(props) {
         <ColumnaTablaLocales>{local.nombre}</ColumnaTablaLocales>
         <ColumnaTablaLocales>{local.logo}</ColumnaTablaLocales>
         <ColumnaTablaLocales>{local.administrador}</ColumnaTablaLocales>
+        <ColumnaOpciones>
+          <span className="material-icons-outlined">more_vert</span>
+        </ColumnaOpciones>
       </FilaTablaLocales>
     );
   });
 
   return (
     <Contenedor visible={props.visible}>
-      <Opciones>
-        <div></div>
-        <div>
-          <CrearBoton>
-            Crear <i className="fas fa-plus"></i>
-          </CrearBoton>
-          <ModificarBoton>
-            Modificar <i className="fas fa-edit"></i>
-          </ModificarBoton>
-          <EliminarBoton>
-            Eliminar <i className="fas fa-trash"></i>
-          </EliminarBoton>
-        </div>
-      </Opciones>
+      <BarraOpciones>
+        <Boton>Añadir</Boton>
+      </BarraOpciones>
       <TablaLocales>
         <CabeceraTablaLocales>ID</CabeceraTablaLocales>
         <CabeceraTablaLocales>Nombre</CabeceraTablaLocales>
         <CabeceraTablaLocales>Logo</CabeceraTablaLocales>
         <CabeceraTablaLocales>Administrador</CabeceraTablaLocales>
+        <CabeceraTablaLocales>Acciones</CabeceraTablaLocales>
         {cargarLocales}
       </TablaLocales>
+      <Modal>
+        <Input type="text" ref={nombreLocal} placeholder="nombre"></Input>
+        <Input type="file" ref={logoLocal} placeholder="nombre"></Input>
+        <div>
+          <BotonDanger>Eliminar</BotonDanger>
+          <BotonWarning>Modificar</BotonWarning>
+          <BotonWarning onClick={crearLocal}>Crear</BotonWarning>
+        </div>
+      </Modal>
     </Contenedor>
   );
 }

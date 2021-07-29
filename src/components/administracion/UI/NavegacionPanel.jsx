@@ -104,6 +104,7 @@ const DivModal = styled.div`
 
 function NavegacionPanel(props) {
   const [visibleMenuMobile, setVisibleMenuMobile] = useState("none");
+  const username = localStorage.getItem("username");
   let history = useHistory();
 
   function openVisibleMenu() {
@@ -126,7 +127,7 @@ function NavegacionPanel(props) {
           <span className="material-icons-outlined">menu</span>
         </BurgerMenu>
         <ElementosTopBar>
-          Nombre de Usuario
+          {username}
           <span className="material-icons-outlined">face</span>
         </ElementosTopBar>
       </TopBar>
@@ -135,12 +136,18 @@ function NavegacionPanel(props) {
         <Opcion>Opciones</Opcion>
         <Opcion>
           <Tarjeta>
-            Gestión <span className="material-icons-outlined">settings</span>
+            Secciones{" "}
+            <span className="material-icons-outlined">reduce_capacity</span>
           </Tarjeta>
         </Opcion>
         <Opcion>
           <Tarjeta>
             Análisis <span className="material-icons-outlined">analytics</span>
+          </Tarjeta>
+        </Opcion>
+        <Opcion>
+          <Tarjeta>
+            Gestión <span className="material-icons-outlined">settings</span>
           </Tarjeta>
         </Opcion>
         <TarjetaCerrarSesion>
