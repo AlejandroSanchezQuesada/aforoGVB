@@ -101,10 +101,14 @@ function Contador(props) {
         <Titulo>{aforo}</Titulo>
       </div>
       <GridBotones>
-        <ButtonMenos onClick={decrementarContador}>-</ButtonMenos>
-        <Button onClick={incrementarContador}>+</Button>
+        <ButtonMenos onClick={decrementarContador}>
+          <span className="material-icons-outlined">remove</span>
+        </ButtonMenos>
+        <Button onClick={incrementarContador}>
+          <span className="material-icons-outlined">add</span>
+        </Button>
         <ButtonDelete>
-          <i className="fas fa-trash"></i>
+          <span className="material-icons-outlined">delete</span>
         </ButtonDelete>
       </GridBotones>
       <Link to={"/panel"}>Volver atrás</Link>

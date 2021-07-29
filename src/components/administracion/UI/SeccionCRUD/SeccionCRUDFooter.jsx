@@ -7,7 +7,7 @@ const NavOpciones = styled.div`
   text-align: center;
   background-color: lightgray;
 
-  width: 100vw;
+  width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;

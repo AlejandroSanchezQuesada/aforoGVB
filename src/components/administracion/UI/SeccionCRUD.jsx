@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import SeccionCRUDFooter from "./SeccionCRUD/SeccionCRUDFooter";
 import { useState } from "react";
+import LocalesCRUD from "./SeccionCRUD/LocalesCRUD";
 
 const DivPruebas = styled.div`
   display: ${(props) => props.visible};
 `;
 
 function SeccionCRUD() {
-  const [showLocales, setShowLocales] = useState("none");
+  const [showLocales, setShowLocales] = useState("block");
   const [showSecciones, setShowSecciones] = useState("none");
   const [showUsuarios, setShowUsuarios] = useState("none");
 
@@ -31,8 +32,7 @@ function SeccionCRUD() {
 
   return (
     <div>
-      <h1>Seccion CRUD</h1>
-      <DivPruebas visible={showLocales}>Locales</DivPruebas>
+      <LocalesCRUD visible={showLocales}>Locales</LocalesCRUD>
       <DivPruebas visible={showSecciones}>Secciones</DivPruebas>
       <DivPruebas visible={showUsuarios}>Usuarios</DivPruebas>
 
