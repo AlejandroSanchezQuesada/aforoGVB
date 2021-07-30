@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
+import { readFileSync as fs } from "fs";
 
 const Contenedor = styled.div`
   display: ${(props) => props.visible};
@@ -12,7 +13,6 @@ const TablaLocales = styled.table`
   text-align: center;
   overflow-y: scroll;
   height: 80vh;
-  overflow-y: scroll;
   @media (max-width: 600px) {
     width: 100vw;
   }
@@ -48,13 +48,19 @@ const BarraOpciones = styled.div`
 
 const Boton = styled.button`
   cursor: pointer;
-  color: white;
-  background-color: #696ae5;
+  background-color: #82e569;
   border: solid 1px transparent;
   margin-right: 10px;
   border-radius: 5px;
+  height: 50%;
+  width: 90%;
+  color: black;
+`;
+
+const BotonAñadir = styled(Boton)`
   height: 100%;
   width: 100px;
+  color: black;
 `;
 
 const BotonWarning = styled(Boton)`
@@ -73,7 +79,7 @@ const Modal = styled.div`
   top: 30%;
   left: 30%;
   background-color: #696ae5;
-  display: grid;
+  display: ${(props) => props.visible};
   grid-template-columns: 100%;
   text-align: center;
 `;
@@ -88,14 +94,38 @@ const Input = styled.input`
   align-items: center;
 `;
 
+const GridBotones = styled.div`
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  text-align: center;
+`;
+
 function LocalesCRUD(props) {
   axios.defaults.headers.common["Authorization"] =
     localStorage.getItem("token");
 
   const [locales, setLocales] = useState([]);
   const nombreLocal = useRef();
-  const logoLocal = useRef();
-  const administrador = useRef();
+  const [idLocal, setIdLocal] = useState("");
+  const [imagenLocal, setImagenLocal] = useState("");
+  const [showModalCrearLocal, setShowModalCrearLocal] = useState("none");
+
+  function createImage(file) {
+    let reader = new FileReader();
+    reader.onload = (e) => {
+      setImagenLocal(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function cambiaImagen(e) {
+    let files = e.target.files || e.dataTransfer.files;
+    if (!files.length) {
+      return;
+    } else {
+      createImage(files[0]);
+    }
+  }
 
   function getLocales() {
     // Make a request for a user with a given ID
@@ -117,17 +147,50 @@ function LocalesCRUD(props) {
   }
 
   function crearLocal() {
-    axios
-      .post("http://192.168.1.98/api/locales", {
-        nombre: nombreLocal,
-        logo: logoLocal,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    console.log(imagenLocal);
+    console.log(nombreLocal.current.value);
+
+    const url = "http://192.168.1.98/api/locales";
+    const formData = {
+      nombre: "pedro",
+      file: imagenLocal,
+    };
+    return axios.post(url, formData).then((response) => console.log(response));
+  }
+
+  function crearLocalPostman() {
+    run().catch((err) => console.log(err));
+    async function run() {
+      const blob = await fetch(imagenLocal).then((res) => res.blob());
+
+      const formData = new FormData();
+      formData.append("file", blob);
+      formData.append("nombre", nombreLocal.current.value);
+
+      // Post the form, just make sure to set the 'Content-Type' header
+      const res = await axios.post(
+        "http://192.168.1.98/api/locales",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Prints "yinyang.png"
+      console.log(res);
+    }
+  }
+
+  function toggleModal() {
+    setShowModalCrearLocal("grid");
+
+    if (showModalCrearLocal != "grid") {
+      setShowModalCrearLocal("grid");
+    } else if (showModalCrearLocal != "none") {
+      setShowModalCrearLocal("none");
+    }
   }
 
   useEffect(() => {
@@ -151,7 +214,7 @@ function LocalesCRUD(props) {
   return (
     <Contenedor visible={props.visible}>
       <BarraOpciones>
-        <Boton>Añadir</Boton>
+        <BotonAñadir onClick={toggleModal}>Añadir</BotonAñadir>
       </BarraOpciones>
       <TablaLocales>
         <CabeceraTablaLocales>ID</CabeceraTablaLocales>
@@ -161,14 +224,18 @@ function LocalesCRUD(props) {
         <CabeceraTablaLocales>Acciones</CabeceraTablaLocales>
         {cargarLocales}
       </TablaLocales>
-      <Modal>
-        <Input type="text" ref={nombreLocal} placeholder="nombre"></Input>
-        <Input type="file" ref={logoLocal} placeholder="nombre"></Input>
-        <div>
+      <Modal visible={showModalCrearLocal}>
+        <Input
+          type="text"
+          ref={nombreLocal}
+          placeholder="Nombre del Local"
+        ></Input>
+        <Input type="file" onChange={cambiaImagen} placeholder="nombre"></Input>
+        <GridBotones>
           <BotonDanger>Eliminar</BotonDanger>
           <BotonWarning>Modificar</BotonWarning>
-          <BotonWarning onClick={crearLocal}>Crear</BotonWarning>
-        </div>
+          <Boton onClick={crearLocalPostman}>Crear</Boton>
+        </GridBotones>
       </Modal>
     </Contenedor>
   );
