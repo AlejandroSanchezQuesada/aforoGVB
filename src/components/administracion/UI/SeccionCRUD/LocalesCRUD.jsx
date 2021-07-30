@@ -7,30 +7,57 @@ const Contenedor = styled.div`
   display: ${(props) => props.visible};
 `;
 
-const TablaLocales = styled.table`
+const TablaLocales = styled.div`
   width: 100%;
   background-color: #c7d2fe;
   text-align: center;
-  overflow-y: scroll;
   height: 80vh;
+  display: grid;
+  grid-template-columns: 100%;
   @media (max-width: 600px) {
-    width: 100vw;
+    width: 100%;
   }
 `;
 
-const CabeceraTablaLocales = styled.th``;
+const CabeceraTablaLocales = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  text-align: center;
+  width: 100%;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+`;
 
-const FilaTablaLocales = styled.tr`
-  transition: 0.3s;
+const FilaTablaLocales = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  text-align: center;
+  width: 100%;
   &:hover {
     background-color: #1e293b;
     color: white;
   }
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
-const ColumnaTablaLocales = styled.td`
+const ColumnaTablaLocales = styled.div`
   padding-top: 1%;
   padding-bottom: 1%;
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  @media (max-width: 600px) {
+    width: 50px;
+  }
 `;
 
 const ColumnaOpciones = styled(ColumnaTablaLocales)`
@@ -59,7 +86,7 @@ const Boton = styled.button`
 
 const BotonAñadir = styled(Boton)`
   height: 100%;
-  width: 100px;
+  width: 80px;
   color: black;
 `;
 
@@ -147,18 +174,6 @@ function LocalesCRUD(props) {
   }
 
   function crearLocal() {
-    console.log(imagenLocal);
-    console.log(nombreLocal.current.value);
-
-    const url = "http://192.168.1.98/api/locales";
-    const formData = {
-      nombre: "pedro",
-      file: imagenLocal,
-    };
-    return axios.post(url, formData).then((response) => console.log(response));
-  }
-
-  function crearLocalPostman() {
     run().catch((err) => console.log(err));
     async function run() {
       const blob = await fetch(imagenLocal).then((res) => res.blob());
@@ -178,12 +193,51 @@ function LocalesCRUD(props) {
         }
       );
 
-      // Prints "yinyang.png"
-      console.log(res);
+      alert(res.statusText);
     }
   }
 
-  function toggleModal() {
+  function modificarLocal() {
+    run().catch((err) => console.log(err));
+    async function run() {
+      const blob = await fetch(imagenLocal).then((res) => res.blob());
+
+      const formData = new FormData();
+      formData.append("id", idLocal);
+      formData.append("file", blob);
+      formData.append("nombre", nombreLocal.current.value);
+
+      // Post the form, just make sure to set the 'Content-Type' header
+      const res = await axios.post(
+        "http://192.168.1.98/api/locales/update",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      alert(res.statusText);
+    }
+  }
+
+  function eliminarLocal() {
+    axios
+      .delete("http://192.168.1.98/api/locales/1", {
+        id: idLocal,
+      })
+      .then(function (response) {
+        console.log(response);
+        alert(response.statusText);
+      })
+      .catch(function (error) {
+        alert(error.response.data.error);
+      });
+  }
+
+  function toggleModal(idLocal = 0) {
+    setIdLocal(idLocal);
     setShowModalCrearLocal("grid");
 
     if (showModalCrearLocal != "grid") {
@@ -204,7 +258,11 @@ function LocalesCRUD(props) {
         <ColumnaTablaLocales>{local.nombre}</ColumnaTablaLocales>
         <ColumnaTablaLocales>{local.logo}</ColumnaTablaLocales>
         <ColumnaTablaLocales>{local.administrador}</ColumnaTablaLocales>
-        <ColumnaOpciones>
+        <ColumnaOpciones
+          onClick={() => {
+            toggleModal(local.id);
+          }}
+        >
           <span className="material-icons-outlined">more_vert</span>
         </ColumnaOpciones>
       </FilaTablaLocales>
@@ -214,14 +272,21 @@ function LocalesCRUD(props) {
   return (
     <Contenedor visible={props.visible}>
       <BarraOpciones>
-        <BotonAñadir onClick={toggleModal}>Añadir</BotonAñadir>
+        <BotonAñadir onClick={getLocales}>
+          <span className="material-icons-outlined">sync</span>
+        </BotonAñadir>
+        <BotonAñadir onClick={toggleModal}>
+          <span className="material-icons-outlined">add_box</span>
+        </BotonAñadir>
       </BarraOpciones>
       <TablaLocales>
-        <CabeceraTablaLocales>ID</CabeceraTablaLocales>
-        <CabeceraTablaLocales>Nombre</CabeceraTablaLocales>
-        <CabeceraTablaLocales>Logo</CabeceraTablaLocales>
-        <CabeceraTablaLocales>Administrador</CabeceraTablaLocales>
-        <CabeceraTablaLocales>Acciones</CabeceraTablaLocales>
+        <CabeceraTablaLocales>
+          <span>ID</span>
+          <span>Nombre</span>
+          <span>Logo</span>
+          <span>Admin</span>
+          <span>Acciones</span>
+        </CabeceraTablaLocales>
         {cargarLocales}
       </TablaLocales>
       <Modal visible={showModalCrearLocal}>
@@ -232,9 +297,10 @@ function LocalesCRUD(props) {
         ></Input>
         <Input type="file" onChange={cambiaImagen} placeholder="nombre"></Input>
         <GridBotones>
-          <BotonDanger>Eliminar</BotonDanger>
-          <BotonWarning>Modificar</BotonWarning>
-          <Boton onClick={crearLocalPostman}>Crear</Boton>
+          <BotonDanger onClick={eliminarLocal}>Eliminar</BotonDanger>
+          <BotonWarning onClick={modificarLocal}>Modificar</BotonWarning>
+          <Boton onClick={crearLocal}>Crear</Boton>
+          <span onClick={toggleModal}>Cerrar</span>
         </GridBotones>
       </Modal>
     </Contenedor>
