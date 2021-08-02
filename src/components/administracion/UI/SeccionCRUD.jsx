@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import LocalesCRUD from "./SeccionCRUD/LocalesCRUD";
+import SeccionesCRUD from "./SeccionCRUD/SeccionesCRUD";
 
 const DivPruebas = styled.div`
   display: ${(props) => props.visible};
@@ -19,6 +20,7 @@ const Boton = styled.button`
   border-radius: 5px;
   height: 100%;
   width: 100px;
+  cursor: pointer;
 `;
 
 const BotonWarning = styled(Boton)`
@@ -29,32 +31,57 @@ const BotonDanger = styled(Boton)`
   background-color: #f43f5e;
 `;
 
+const DivBotonEscogerSeccion = styled.div`
+  height: 30px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 25%);
+`;
+
 function SeccionCRUD() {
   const [showLocales, setShowLocales] = useState("block");
   const [showSecciones, setShowSecciones] = useState("none");
   const [showUsuarios, setShowUsuarios] = useState("none");
+  const [showTemas, setShowTemas] = useState("none");
 
   function mostrarLocales() {
     setShowLocales("block");
     setShowSecciones("none");
     setShowUsuarios("none");
+    setShowTemas("none");
   }
 
   function mostrarSecciones() {
     setShowLocales("none");
     setShowSecciones("block");
     setShowUsuarios("none");
+    setShowTemas("none");
   }
 
   function mostrarUsuarios() {
     setShowLocales("none");
     setShowSecciones("none");
     setShowUsuarios("block");
+    setShowTemas("none");
+  }
+
+  function mostrarTemas() {
+    setShowLocales("none");
+    setShowSecciones("none");
+    setShowUsuarios("none");
+    setShowTemas("block");
   }
 
   return (
     <div>
-      <LocalesCRUD></LocalesCRUD>
+      <DivBotonEscogerSeccion>
+        <Boton onClick={mostrarLocales}>Locales</Boton>
+        <Boton onClick={mostrarSecciones}>Secciones</Boton>
+        <Boton onClick={mostrarUsuarios}>Usuarios</Boton>
+        <Boton onClick={mostrarTemas}>Temas</Boton>
+      </DivBotonEscogerSeccion>
+      <LocalesCRUD visible={showLocales}></LocalesCRUD>
+      <SeccionesCRUD visible={showSecciones}></SeccionesCRUD>
     </div>
   );
 }
