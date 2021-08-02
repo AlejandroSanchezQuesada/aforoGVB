@@ -21,7 +21,7 @@ const TablaLocales = styled.div`
 
 const CabeceraTablaLocales = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 20%);
+  grid-template-columns: repeat(6, 15%);
   text-align: center;
   width: 100%;
   @media (max-width: 600px) {
@@ -31,7 +31,7 @@ const CabeceraTablaLocales = styled.div`
 
 const FilaTablaLocales = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 20%);
+  grid-template-columns: repeat(6, 15%);
   text-align: center;
   width: 100%;
   &:hover {
@@ -73,7 +73,7 @@ const BarraOpciones = styled.div`
   text-align: right;
 `;
 
-const Boton = styled.button`
+const BotonSec = styled.button`
   cursor: pointer;
   background-color: #82e569;
   border: solid 1px transparent;
@@ -84,21 +84,21 @@ const Boton = styled.button`
   color: black;
 `;
 
-const BotonAñadir = styled(Boton)`
+const BotonAñadirSec = styled(BotonSec)`
   height: 100%;
   width: 80px;
   color: black;
 `;
 
-const BotonWarning = styled(Boton)`
+const BotonWarningSec = styled(BotonSec)`
   background-color: #f59e0b;
 `;
 
-const BotonDanger = styled(Boton)`
+const BotonDangerSec = styled(BotonSec)`
   background-color: #f43f5e;
 `;
 
-const Modal = styled.div`
+const ModalSecc = styled.div`
   padding: 2%;
   width: 50%;
   height: 50%;
@@ -140,20 +140,22 @@ const SpanCerrar = styled.span`
   }
 `;
 
-function LocalesCRUD(props) {
+function SeccionesCRUD(props) {
   axios.defaults.headers.common["Authorization"] =
     localStorage.getItem("token");
 
-  const [locales, setLocales] = useState([]);
-  const nombreLocal = useRef();
-  const [idLocal, setIdLocal] = useState("");
-  const [imagenLocal, setImagenLocal] = useState("");
-  const [showModalCrearLocal, setShowModalCrearLocal] = useState("none");
+  const [secciones, setSecciones] = useState([]);
+  const nombreSeccion = useRef();
+  const aforoSeccion = useRef();
+  const localSeccion = useRef();
+  const [idSeccion, setIdSeccion] = useState("");
+  const [imagenSeccion, setImagenSeccion] = useState("");
+  const [showModalCrearSeccion, setShowModalCrearSeccion] = useState("none");
 
   function createImage(file) {
     let reader = new FileReader();
     reader.onload = (e) => {
-      setImagenLocal(e.target.result);
+      setImagenSeccion(e.target.result);
     };
     reader.readAsDataURL(file);
   }
@@ -167,18 +169,18 @@ function LocalesCRUD(props) {
     }
   }
 
-  function getLocales() {
+  function getSecciones() {
     // Make a request for a user with a given ID
     axios
-      .get("http://192.168.1.98/api/locales")
+      .get("http://192.168.1.98/api/secciones")
       .then(function (response) {
         let arrayData = [];
         // handle success
-        response.data.data.forEach((local) => {
-          arrayData.push(local);
+        response.data.data.forEach((seccion) => {
+          arrayData.push(seccion);
         });
 
-        setLocales(arrayData);
+        setSecciones(arrayData);
       })
       .catch(function (error) {
         // handle error
@@ -186,18 +188,20 @@ function LocalesCRUD(props) {
       });
   }
 
-  function crearLocal() {
+  function crearSeccion() {
     run().catch((err) => console.log(err));
     async function run() {
-      const blob = await fetch(imagenLocal).then((res) => res.blob());
+      const blob = await fetch(imagenSeccion).then((res) => res.blob());
 
       const formData = new FormData();
       formData.append("file", blob);
-      formData.append("nombre", nombreLocal.current.value);
+      formData.append("nombre", nombreSeccion.current.value);
+      formData.append("aforo", aforoSeccion.current.value);
+      formData.append("local", localSeccion.current.value);
 
       // Post the form, just make sure to set the 'Content-Type' header
       const res = await axios.post(
-        "http://192.168.1.98/api/locales",
+        "http://192.168.1.98/api/secciones",
         formData,
         {
           headers: {
@@ -210,19 +214,21 @@ function LocalesCRUD(props) {
     }
   }
 
-  function modificarLocal() {
+  function modificarSeccion() {
     run().catch((err) => console.log(err));
     async function run() {
-      const blob = await fetch(imagenLocal).then((res) => res.blob());
+      const blob = await fetch(imagenSeccion).then((res) => res.blob());
 
       const formData = new FormData();
-      formData.append("id", idLocal);
+      formData.append("id", idSeccion);
       formData.append("file", blob);
-      formData.append("nombre", nombreLocal.current.value);
+      formData.append("nombre", nombreSeccion.current.value);
+      formData.append("aforo", aforoSeccion.current.value);
+      formData.append("local", localSeccion.current.value);
 
       // Post the form, just make sure to set the 'Content-Type' header
       const res = await axios.post(
-        "http://192.168.1.98/api/locales/update",
+        "http://192.168.1.98/api/secciones/update",
         formData,
         {
           headers: {
@@ -235,10 +241,10 @@ function LocalesCRUD(props) {
     }
   }
 
-  function eliminarLocal() {
+  function eliminarSeccion() {
     axios
-      .delete("http://192.168.1.98/api/locales/1", {
-        id: idLocal,
+      .delete("http://192.168.1.98/api/secciones/1", {
+        id: idSeccion,
       })
       .then(function (response) {
         console.log(response);
@@ -250,30 +256,31 @@ function LocalesCRUD(props) {
   }
 
   function toggleModal(idLocal = 0) {
-    setIdLocal(idLocal);
-    setShowModalCrearLocal("grid");
+    setIdSeccion(idLocal);
+    setShowModalCrearSeccion("grid");
 
-    if (showModalCrearLocal != "grid") {
-      setShowModalCrearLocal("grid");
-    } else if (showModalCrearLocal != "none") {
-      setShowModalCrearLocal("none");
+    if (showModalCrearSeccion != "grid") {
+      setShowModalCrearSeccion("grid");
+    } else if (showModalCrearSeccion != "none") {
+      setShowModalCrearSeccion("none");
     }
   }
 
   useEffect(() => {
-    getLocales();
+    getSecciones();
   }, []);
 
-  const cargarLocales = locales.map((local) => {
+  const cargarSecciones = secciones.map((seccion) => {
     return (
-      <FilaTablaLocales key={"local" + local.id}>
-        <ColumnaTablaLocales>{local.id}</ColumnaTablaLocales>
-        <ColumnaTablaLocales>{local.nombre}</ColumnaTablaLocales>
-        <ColumnaTablaLocales>{local.logo}</ColumnaTablaLocales>
-        <ColumnaTablaLocales>{local.administrador}</ColumnaTablaLocales>
+      <FilaTablaLocales key={seccion.id}>
+        <ColumnaTablaLocales>{seccion.id}</ColumnaTablaLocales>
+        <ColumnaTablaLocales>{seccion.nombre}</ColumnaTablaLocales>
+        <ColumnaTablaLocales>{seccion.imagen}</ColumnaTablaLocales>
+        <ColumnaTablaLocales>{seccion.aforo}</ColumnaTablaLocales>
+        <ColumnaTablaLocales>{seccion.local}</ColumnaTablaLocales>
         <ColumnaOpciones
           onClick={() => {
-            toggleModal(local.id);
+            toggleModal(seccion.id);
           }}
         >
           <span className="material-icons-outlined">more_vert</span>
@@ -285,39 +292,52 @@ function LocalesCRUD(props) {
   return (
     <Contenedor visible={props.visible}>
       <BarraOpciones>
-        <BotonAñadir onClick={getLocales}>
+        <BotonAñadirSec onClick={getSecciones}>
           <span className="material-icons-outlined">sync</span>
-        </BotonAñadir>
-        <BotonAñadir onClick={toggleModal}>
+        </BotonAñadirSec>
+        <BotonAñadirSec onClick={toggleModal}>
           <span className="material-icons-outlined">add_box</span>
-        </BotonAñadir>
+        </BotonAñadirSec>
       </BarraOpciones>
       <TablaLocales>
         <CabeceraTablaLocales>
           <span>ID</span>
           <span>Nombre</span>
-          <span>Logo</span>
-          <span>Admin</span>
+          <span>Imagen</span>
+          <span>Aforo</span>
+          <span>Local</span>
           <span>Acciones</span>
         </CabeceraTablaLocales>
-        {cargarLocales}
+        {cargarSecciones}
       </TablaLocales>
-      <Modal visible={showModalCrearLocal}>
+      <ModalSecc visible={showModalCrearSeccion}>
         <Input
           type="text"
-          ref={nombreLocal}
-          placeholder="Nombre del Local"
+          ref={nombreSeccion}
+          placeholder="Nombre de la Sección"
+        ></Input>
+        <Input
+          type="number"
+          ref={aforoSeccion}
+          placeholder="Cantidad de Aforo Inicial"
+        ></Input>
+        <Input
+          type="number"
+          ref={localSeccion}
+          placeholder="ID del Local"
         ></Input>
         <Input type="file" onChange={cambiaImagen} placeholder="nombre"></Input>
         <GridBotones>
-          <BotonDanger onClick={eliminarLocal}>Eliminar Local</BotonDanger>
-          <BotonWarning onClick={modificarLocal}>Modificar Local</BotonWarning>
-          <Boton onClick={crearLocal}>Crear Local</Boton>
+          <BotonDangerSec onClick={eliminarSeccion}>Eliminar</BotonDangerSec>
+          <BotonWarningSec onClick={modificarSeccion}>
+            Modificar
+          </BotonWarningSec>
+          <BotonSec onClick={crearSeccion}>Crear</BotonSec>
           <SpanCerrar onClick={toggleModal}>Cerrar</SpanCerrar>
         </GridBotones>
-      </Modal>
+      </ModalSecc>
     </Contenedor>
   );
 }
 
-export default LocalesCRUD;
+export default SeccionesCRUD;
