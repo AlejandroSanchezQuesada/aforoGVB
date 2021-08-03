@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const Contenedor = styled.div`
   font-family: "ataper";
@@ -22,7 +22,11 @@ const ContenedorLogin = styled.div`
 `;
 
 const TituloLogin = styled.div`
-  font-size: 6vw;
+  font-size: 64px;
+
+  @media (max-width: 600px) {
+    font-size: 6vw;
+  }
 `;
 
 const BotonLogin = styled.button`
@@ -60,6 +64,8 @@ const InputEstilos = styled.input`
     background-color: white;
   }
 `;
+
+const AtrasBoton = styled(Link)``;
 
 function Login() {
   /* States */
@@ -109,6 +115,7 @@ function Login() {
         <DivCentrarBoton>
           <BotonLogin onClick={logearse}>Iniciar Sesión</BotonLogin>
         </DivCentrarBoton>
+        <AtrasBoton to={"/"}>Atrás</AtrasBoton>
       </ContenedorLogin>
       <p>
         ¿No tienes cuenta? Ponte en contacto con un administrador para la

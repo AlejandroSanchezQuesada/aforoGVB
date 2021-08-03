@@ -108,7 +108,7 @@ function MonitorSecciones(props) {
     } else {
       return (
         <div>
-          <HeaderImg src={local.logo}></HeaderImg>
+          <HeaderImg src={"http://192.168.1.98/" + local.logo}></HeaderImg>
           <Titulo>{local.nombre}</Titulo>
         </div>
       );
