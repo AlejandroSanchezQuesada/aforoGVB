@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const Contenedor = styled.div`
   display: ${(props) => props.visible};
@@ -21,17 +21,13 @@ const ContenedorFormularioRegistro = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 80%);
   grid-template-rows: repeat(auto-fill, 40px);
-  height: 100vh;
+  height: 100%;
 
   padding-top: 2%;
   margin-left: 15%;
 `;
 
 const Input = styled.input`
-  height: 25px;
-`;
-
-const Select = styled.select`
   height: 25px;
 `;
 
@@ -46,41 +42,68 @@ const Button = styled.button`
   }
 `;
 
+const ContenedorPreview = styled.div`
+  border-top: solid 1px black;
+  margin-top: 2%;
+  width: 100%;
+  height: 100%;
+  background-color: ${(props) => props.colorPrincipal};
+  text-align: center;
+  font-family: "parking";
+`;
+
+const TituloPreview = styled.p`
+  font-size: 20px;
+  color: ${(props) => props.colorSecundario};
+`;
+
+const TituloPreview2 = styled.p`
+  font-size: 20px;
+  color: ${(props) => props.colorSecundario2};
+`;
+
+const TituloPreview3 = styled.p`
+  font-size: 20px;
+  color: ${(props) => props.colorSecundario3};
+`;
+
+const TituloPreview4 = styled.p`
+  font-size: 20px;
+  color: ${(props) => props.colorSecundario4};
+`;
+
+const TituloPreview5 = styled.p`
+  font-size: 20px;
+  color: ${(props) => props.colorSecundario5};
+`;
+
 function TemasCRUD(props) {
   axios.defaults.headers.common["Authorization"] =
     localStorage.getItem("token");
 
-  const name = useRef("");
-  const email = useRef("");
-  const password = useRef("");
-  const password_confirmation = useRef("");
-  const rango = useRef("");
+  const nombre = useRef("");
+  const [colorPrincipal, setColorPrincipal] = useState("#000000");
+  const [colorSecundario, setColorSecundario] = useState("#000000");
+  const [colorSecundario2, setColorSecundario2] = useState("#000000");
+  const [colorSecundario3, setColorSecundario3] = useState("#000000");
+  const [colorSecundario4, setColorSecundario4] = useState("#000000");
+  const [colorSecundario5, setColorSecundario5] = useState("#000000");
 
-  function registrarUsuario() {
-    console.log(
-      name.current.value,
-      email.current.value,
-      password.current.value,
-      password_confirmation.current.value,
-      rango.current.value
-    );
-
+  function crearTema() {
     axios
-      .post("http://192.168.1.98/api/registrarse", {
-        name: name.current.value,
-        email: email.current.value,
-        password: password.current.value,
-        password_confirmation: password_confirmation.current.value,
-        rango: rango.current.value,
+      .post("http://192.168.1.98/api/temas", {
+        nombre: nombre.current.value,
+        colorPrincipal: colorPrincipal,
+        colorSecundario: colorSecundario,
+        colorSecundario2: colorSecundario2,
+        colorSecundario3: colorSecundario3,
+        colorSecundario4: colorSecundario4,
+        colorSecundario5: colorSecundario5,
       })
       .then(function (response) {
-        console.log(response);
+        alert(response.statusText);
 
-        name.current.value = "";
-        email.current.value = "";
-        password.current.value = "";
-        password_confirmation.current.value = "";
-        rango.current.value = "";
+        nombre.current.value = "";
       })
       .catch(function (error) {
         console.log(error);
@@ -91,27 +114,84 @@ function TemasCRUD(props) {
     <Contenedor visible={props.visible}>
       <BarraOpciones></BarraOpciones>
       <ContenedorFormularioRegistro>
-        <Input ref={name} placeholder="Nombre *" type="text"></Input>
-        <Input ref={email} placeholder="Email *" type="email"></Input>
-        <Input
-          ref={password}
-          placeholder="Contraseña *"
-          type="password"
-        ></Input>
-        <Input
-          ref={password_confirmation}
-          placeholder="Confirmar Contraseña *"
-          type="password"
-        ></Input>
+        <Input ref={nombre} placeholder="Nombre *" type="text"></Input>
+        <p>
+          Color Principal :
+          <Input
+            onChange={(e) => {
+              setColorPrincipal(e.target.value);
+            }}
+            type="color"
+          ></Input>
+        </p>
 
-        <Select ref={rango}>
-          <option value="">Rango de Usuario:</option>
-          <option value="">Staff</option>
-          <option value="admin">Admin</option>
-        </Select>
+        <p>
+          Color Secundario :
+          <Input
+            onChange={(e) => {
+              setColorSecundario(e.target.value);
+            }}
+            type="color"
+          ></Input>
+        </p>
+        <p>
+          Color Secundario 2 :
+          <Input
+            onChange={(e) => {
+              setColorSecundario2(e.target.value);
+            }}
+            type="color"
+          ></Input>
+        </p>
+        <p>
+          Color Secundario 3 :
+          <Input
+            onChange={(e) => {
+              setColorSecundario3(e.target.value);
+            }}
+            type="color"
+          ></Input>
+        </p>
+        <p>
+          Color Secundario 4 :
+          <Input
+            onChange={(e) => {
+              setColorSecundario4(e.target.value);
+            }}
+            type="color"
+          ></Input>
+        </p>
 
-        <Button onClick={registrarUsuario}>Registrar Usuario</Button>
+        <p>
+          Color Secundario 5 :
+          <Input
+            onChange={(e) => {
+              setColorSecundario5(e.target.value);
+            }}
+            type="color"
+          ></Input>
+        </p>
+
+        <Button onClick={crearTema}>Crear Tema</Button>
       </ContenedorFormularioRegistro>
+      <p>Preview del Tema ⬇</p>
+      <ContenedorPreview colorPrincipal={colorPrincipal}>
+        <TituloPreview colorSecundario={colorSecundario}>
+          Hola soy el color Secundario el fondo es el principal
+        </TituloPreview>
+        <TituloPreview2 colorSecundario2={colorSecundario2}>
+          Color secundario 2
+        </TituloPreview2>
+        <TituloPreview3 colorSecundario3={colorSecundario3}>
+          Color secundario 3
+        </TituloPreview3>
+        <TituloPreview4 colorSecundario4={colorSecundario4}>
+          Color secundario 4
+        </TituloPreview4>
+        <TituloPreview5 colorSecundario5={colorSecundario5}>
+          Color secundario 5
+        </TituloPreview5>
+      </ContenedorPreview>
     </Contenedor>
   );
 }
