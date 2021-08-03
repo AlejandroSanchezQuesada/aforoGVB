@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import LocalesCRUD from "./SeccionCRUD/LocalesCRUD";
 import SeccionesCRUD from "./SeccionCRUD/SeccionesCRUD";
+import UsuariosCRUD from "./SeccionCRUD/UsuariosCRUD";
 
 const DivPruebas = styled.div`
   display: ${(props) => props.visible};
@@ -82,6 +83,7 @@ function SeccionCRUD() {
       </DivBotonEscogerSeccion>
       <LocalesCRUD visible={showLocales}></LocalesCRUD>
       <SeccionesCRUD visible={showSecciones}></SeccionesCRUD>
+      <UsuariosCRUD visible={showUsuarios}></UsuariosCRUD>
     </div>
   );
 }
