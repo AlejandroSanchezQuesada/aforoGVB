@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
+const ContenedorPrincipal = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: ${(props) => props.visible};
+`;
+
 const Contenedor = styled.div`
   width: 100%;
   height: 100vh;
@@ -44,7 +50,7 @@ const DivSeccion = styled.div`
   }
 `;
 
-function SeccionContadores() {
+function SeccionContadores(props) {
   const [secciones, setSecciones] = useState([]);
   let history = useHistory();
 
@@ -92,7 +98,11 @@ function SeccionContadores() {
     </DivSeccion>
   ));
 
-  return <Contenedor>{mostrarSecciones}</Contenedor>;
+  return (
+    <ContenedorPrincipal visible={props.visible}>
+      <Contenedor>{mostrarSecciones}</Contenedor>
+    </ContenedorPrincipal>
+  );
 }
 
 export default SeccionContadores;

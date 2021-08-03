@@ -5,7 +5,7 @@ import SeccionesCRUD from "./SeccionCRUD/SeccionesCRUD";
 import UsuariosCRUD from "./SeccionCRUD/UsuariosCRUD";
 import TemasCRUD from "./SeccionCRUD/TemasCRUD";
 
-const DivPruebas = styled.div`
+const Contenedor = styled.div`
   display: ${(props) => props.visible};
 `;
 
@@ -40,7 +40,7 @@ const DivBotonEscogerSeccion = styled.div`
   grid-template-columns: repeat(auto-fill, 25%);
 `;
 
-function SeccionCRUD() {
+function SeccionCRUD(props) {
   const [showLocales, setShowLocales] = useState("block");
   const [showSecciones, setShowSecciones] = useState("none");
   const [showUsuarios, setShowUsuarios] = useState("none");
@@ -75,7 +75,7 @@ function SeccionCRUD() {
   }
 
   return (
-    <div>
+    <Contenedor visible={props.visible}>
       <DivBotonEscogerSeccion>
         <Boton onClick={mostrarLocales}>Locales</Boton>
         <Boton onClick={mostrarSecciones}>Secciones</Boton>
@@ -86,7 +86,7 @@ function SeccionCRUD() {
       <SeccionesCRUD visible={showSecciones}></SeccionesCRUD>
       <UsuariosCRUD visible={showUsuarios}></UsuariosCRUD>
       <TemasCRUD visible={showTemas}></TemasCRUD>
-    </div>
+    </Contenedor>
   );
 }
 

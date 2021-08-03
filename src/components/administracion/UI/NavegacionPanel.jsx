@@ -134,18 +134,18 @@ function NavegacionPanel(props) {
 
       <Contenedor visible={visibleMenuMobile}>
         <Opcion>Opciones</Opcion>
-        <Opcion>
+        <Opcion onClick={props.mostrarSecciones}>
           <Tarjeta>
             Secciones{" "}
             <span className="material-icons-outlined">reduce_capacity</span>
           </Tarjeta>
         </Opcion>
-        <Opcion>
+        <Opcion onClick={props.mostrarAnalisis}>
           <Tarjeta>
             Análisis <span className="material-icons-outlined">analytics</span>
           </Tarjeta>
         </Opcion>
-        <Opcion>
+        <Opcion onClick={props.mostrarCRUD}>
           <Tarjeta>
             Gestión <span className="material-icons-outlined">settings</span>
           </Tarjeta>
