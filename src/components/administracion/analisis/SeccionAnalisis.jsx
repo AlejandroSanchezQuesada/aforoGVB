@@ -160,7 +160,6 @@ function SeccionAnalisis(props) {
         });
 
         console.log(response);
-        alert("hola");
         setMaximosSeccion(a);
       })
       .catch(function (error) {
