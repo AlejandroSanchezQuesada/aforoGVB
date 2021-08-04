@@ -5,6 +5,7 @@ import { useState } from "react";
 import NavegacionPanel from "./UI/NavegacionPanel";
 import SeccionContadores from "./UI/SeccionContadores";
 import SeccionCRUD from "./UI/SeccionCRUD";
+import SeccionAnalisis from "./analisis/SeccionAnalisis";
 
 const Contenedor = styled.div`
   font-family: "ataper";
@@ -55,6 +56,7 @@ function Panel() {
       <ContenedorSecciones>
         <SeccionContadores visible={showSecciones}></SeccionContadores>
         <SeccionCRUD visible={showCRUD}></SeccionCRUD>
+        <SeccionAnalisis visible={showAnalisis}></SeccionAnalisis>
       </ContenedorSecciones>
     </Contenedor>
   );
