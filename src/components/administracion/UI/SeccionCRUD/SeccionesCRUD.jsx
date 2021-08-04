@@ -14,6 +14,7 @@ const TablaLocales = styled.div`
   height: 80vh;
   display: grid;
   grid-template-columns: 100%;
+  grid-template-rows: repeat(auto-fill, 30px);
   @media (max-width: 600px) {
     width: 100%;
   }

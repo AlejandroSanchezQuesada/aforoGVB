@@ -57,14 +57,6 @@ function UsuariosCRUD(props) {
   const rango = useRef("");
 
   function registrarUsuario() {
-    console.log(
-      name.current.value,
-      email.current.value,
-      password.current.value,
-      password_confirmation.current.value,
-      rango.current.value
-    );
-
     axios
       .post("http://192.168.1.98/api/registrarse", {
         name: name.current.value,
@@ -76,6 +68,8 @@ function UsuariosCRUD(props) {
       .then(function (response) {
         console.log(response);
 
+        alert(response.statusText);
+
         name.current.value = "";
         email.current.value = "";
         password.current.value = "";
@@ -84,6 +78,7 @@ function UsuariosCRUD(props) {
       })
       .catch(function (error) {
         console.log(error);
+        alert(error);
       });
   }
 
@@ -97,11 +92,13 @@ function UsuariosCRUD(props) {
           ref={password}
           placeholder="Contraseña *"
           type="password"
+          minLength={7}
         ></Input>
         <Input
           ref={password_confirmation}
           placeholder="Confirmar Contraseña *"
           type="password"
+          minLength={7}
         ></Input>
 
         <Select ref={rango}>

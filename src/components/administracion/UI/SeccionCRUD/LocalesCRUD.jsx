@@ -14,6 +14,7 @@ const TablaLocales = styled.div`
   height: 80vh;
   display: grid;
   grid-template-columns: 100%;
+  grid-template-rows: repeat(auto-fill, 30px);
   @media (max-width: 600px) {
     width: 100%;
   }
@@ -32,6 +33,7 @@ const CabeceraTablaLocales = styled.div`
 const FilaTablaLocales = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 20%);
+
   text-align: center;
   width: 100%;
   &:hover {

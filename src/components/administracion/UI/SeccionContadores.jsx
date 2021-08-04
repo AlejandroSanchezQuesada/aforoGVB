@@ -27,7 +27,7 @@ const DivSeccion = styled.div`
   font-family: "parking";
   text-align: center;
   padding-top: 15%;
-  background-color: #1e1e1e;
+  background-color: #0f172a;
   color: white;
   width: 80%;
   margin: 10%;
@@ -48,6 +48,10 @@ const DivSeccion = styled.div`
     margin-top: 1%;
     margin-bottom: 1%;
   }
+`;
+
+const Titulo = styled.p`
+  font-size: 30px;
 `;
 
 function SeccionContadores(props) {
@@ -93,8 +97,8 @@ function SeccionContadores(props) {
         });
       }}
     >
-      <p>{seccion.nombre}</p>
-      <p>{seccion.aforo}</p>
+      <Titulo>{seccion.nombre}</Titulo>
+      <Titulo>{seccion.aforo}</Titulo>
     </DivSeccion>
   ));
 
