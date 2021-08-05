@@ -47,8 +47,8 @@ const EnlaceLocal = styled.div`
 `;
 
 const HeaderImg = styled.img`
-  width: 100px;
-  height: 90px;
+  width: 200px;
+  height: 180px;
   margin-top: 10px;
 `;
 

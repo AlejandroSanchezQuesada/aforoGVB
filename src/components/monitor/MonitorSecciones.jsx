@@ -55,8 +55,12 @@ const TituloSeccion2 = styled(TituloSeccion)`
 `;
 
 const HeaderImg = styled.img`
-  width: 20vw;
-  height: 5vh;
+  width: 150px;
+  height: 200px;
+  @media (max-width: 600px) {
+    width: 300px;
+    height: 150px;
+  }
 `;
 
 HeaderImg.defaultProps = {
