@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useHistory } from "react-router";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -63,7 +64,7 @@ const BarraOpciones = styled.div`
   text-align: left;
 `;
 
-const Boton = styled.button`
+const Boton = styled(Link)`
   cursor: pointer;
   background-color: #82e569;
   border: solid 1px transparent;
@@ -72,6 +73,8 @@ const Boton = styled.button`
   height: 100%;
   width: 100px;
   color: black;
+  padding-bottom: 10px;
+  text-decoration: none;
 `;
 
 function SeccionContadores(props) {
@@ -125,8 +128,8 @@ function SeccionContadores(props) {
   return (
     <ContenedorPrincipal visible={props.visible}>
       <BarraOpciones>
-        <Boton>Contador Múltiple</Boton>
-        <Boton>Contador Híbrido</Boton>
+        <Boton to={"/contadormultiple"}>Contador Múltiple</Boton>
+        <Boton to={"/contadorhibrido"}>Contador Híbrido</Boton>
       </BarraOpciones>
       <Contenedor>{mostrarSecciones}</Contenedor>
     </ContenedorPrincipal>
