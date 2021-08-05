@@ -6,6 +6,8 @@ import Monitor from "./components/monitor/Monitor";
 import MonitorSecciones from "./components/monitor/MonitorSecciones";
 import Panel from "./components/administracion/Panel";
 import Contador from "./components/administracion/contadores/Contador";
+import ContadorMultiple from "./components/administracion/contadores/ContadorMultiple";
+import ContadorHibrido from "./components/administracion/contadores/ContadorHibrido";
 
 function App() {
   return (
@@ -20,6 +22,12 @@ function App() {
           </Route>
           <Route path="/contador/:seccionId">
             <Contador></Contador>
+          </Route>
+          <Route path="/contadormultiple">
+            <ContadorMultiple></ContadorMultiple>
+          </Route>
+          <Route path="/contadorhibrido">
+            <ContadorHibrido></ContadorHibrido>
           </Route>
           <Route path="/login">
             <Login></Login>

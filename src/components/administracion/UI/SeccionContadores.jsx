@@ -54,6 +54,26 @@ const Titulo = styled.p`
   font-size: 30px;
 `;
 
+const BarraOpciones = styled.div`
+  width: 100%;
+  height: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #1e293b;
+  text-align: left;
+`;
+
+const Boton = styled.button`
+  cursor: pointer;
+  background-color: #82e569;
+  border: solid 1px transparent;
+  margin-right: 10px;
+  border-radius: 5px;
+  height: 100%;
+  width: 100px;
+  color: black;
+`;
+
 function SeccionContadores(props) {
   const [secciones, setSecciones] = useState([]);
   let history = useHistory();
@@ -104,6 +124,10 @@ function SeccionContadores(props) {
 
   return (
     <ContenedorPrincipal visible={props.visible}>
+      <BarraOpciones>
+        <Boton>Contador Múltiple</Boton>
+        <Boton>Contador Híbrido</Boton>
+      </BarraOpciones>
       <Contenedor>{mostrarSecciones}</Contenedor>
     </ContenedorPrincipal>
   );
