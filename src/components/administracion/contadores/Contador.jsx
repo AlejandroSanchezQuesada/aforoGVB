@@ -107,9 +107,6 @@ function Contador(props) {
         <Button onClick={incrementarContador}>
           <span className="material-icons-outlined">add</span>
         </Button>
-        <ButtonDelete>
-          <span className="material-icons-outlined">delete</span>
-        </ButtonDelete>
       </GridBotones>
       <Link to={"/panel"}>Volver atrás</Link>
     </Contenedor>
