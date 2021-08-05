@@ -33,7 +33,6 @@ const ContenedorSeccion = styled.div`
   grid-template-columns: 100%;
   width: 100%;
   height: 99%;
-  border: solid 2px red;
 `;
 
 function SeccionAnalisis(props) {
@@ -154,13 +153,7 @@ function SeccionAnalisis(props) {
         seccion: idSeccion.current.value,
       })
       .then(function (response) {
-        let a = [];
-        response.data.forEach((dato) => {
-          a.push(dato);
-        });
-
-        console.log(response);
-        setMaximosSeccion(a);
+        setMaximosSeccion(response.data[0]);
       })
       .catch(function (error) {
         console.log(error);
