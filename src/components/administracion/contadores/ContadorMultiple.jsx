@@ -66,10 +66,13 @@ function ContadorMultiple() {
 
   const [idSeccionIzquierda, setIdSeccionIzquierda] = useState();
   const [nombreSeccionIzquierda, setNombreSeccionIzquierda] = useState("");
-  const [aforoSeccionIzquierda, setaforoSeccionIzquierda] =
-    useState("Cargando...");
+  const [aforoSeccionIzquierda, setaforoSeccionIzquierda] = useState(
+    "Selecciona Local..."
+  );
   const [nombreSeccionDerecha, setNombreSeccionDerecha] = useState("");
-  const [aforoSeccionDerecha, setAforoSeccionDerecha] = useState("Cargando...");
+  const [aforoSeccionDerecha, setAforoSeccionDerecha] = useState(
+    "Selecciona Local..."
+  );
 
   const [idSeccionDerecha, setIdSeccionDerecha] = useState();
   const [secciones, setSecciones] = useState([]);
@@ -77,6 +80,16 @@ function ContadorMultiple() {
   const derechaSeleccionado = useRef("");
 
   const [izquierdaSeleccionado, setIzquierdaSeleccionado] = useState("");
+
+  const Enlace = styled(Link)`
+    text-align: left;
+    display: flex;
+    justify-content: left;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #0f172a;
+  `;
 
   useEffect(() => {
     axios
@@ -184,6 +197,11 @@ function ContadorMultiple() {
   return (
     <Contenedor>
       <ContenedorSeccion>
+        <Enlace to={"/panel"}>
+          {" "}
+          <span class="material-icons-outlined">arrow_back_ios</span> Atrás
+        </Enlace>
+
         <div>
           <select
             name="selectorIzquierda"
@@ -198,13 +216,13 @@ function ContadorMultiple() {
             <Titulo>{aforoSeccionIzquierda}</Titulo>
           </div>
           <GridBotones>
-            <Button onClick={incrementarContadorIzquierda}>
-              <span className="material-icons-outlined">add</span>
-            </Button>
             <ButtonMenos onClick={decrementarContadorIzquierda}>
               {" "}
               <span className="material-icons-outlined">remove</span>
             </ButtonMenos>
+            <Button onClick={incrementarContadorIzquierda}>
+              <span className="material-icons-outlined">add</span>
+            </Button>
           </GridBotones>
         </div>
       </ContenedorSeccion>
@@ -224,13 +242,13 @@ function ContadorMultiple() {
             <Titulo>{aforoSeccionDerecha}</Titulo>
           </div>
           <GridBotones>
-            <Button onClick={incrementarContadorDerecha}>
-              <span className="material-icons-outlined">add</span>
-            </Button>
             <ButtonMenos onClick={decrementarContadorDerecha}>
               {" "}
               <span className="material-icons-outlined">remove</span>
             </ButtonMenos>
+            <Button onClick={incrementarContadorDerecha}>
+              <span className="material-icons-outlined">add</span>
+            </Button>
           </GridBotones>
         </div>
       </ContenedorSeccion>
