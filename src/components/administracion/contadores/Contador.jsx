@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Constantes from "../../Constantes/constantes";
 
 const Contenedor = styled.div`
   width: 100%;
@@ -69,7 +70,7 @@ function Contador(props) {
 
   function incrementarContador() {
     axios
-      .post("http://192.168.1.98/api/incrementarContador", {
+      .post(Constantes.RUTA_API + "incrementarContador", {
         id: location.state.seccionId,
       })
       .then(function (response) {
@@ -81,7 +82,7 @@ function Contador(props) {
   }
   function decrementarContador() {
     axios
-      .post("http://192.168.1.98/api/decrementarContador", {
+      .post(Constantes.RUTA_API + "decrementarContador", {
         id: location.state.seccionId,
       })
       .then(function (response) {

@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Constantes from "../Constantes/constantes";
 
 const Contenedor = styled.div`
   font-family: "parking";
@@ -78,7 +79,7 @@ function MonitorSecciones(props) {
     setTemaElegido(JSON.parse(localStorage.getItem("tema")));
 
     axios
-      .post("http://192.168.1.98/api/local", {
+      .post(Constantes.RUTA_API + "local", {
         id: nLocal,
       })
       .then(function (response) {
@@ -92,7 +93,7 @@ function MonitorSecciones(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       axios
-        .post("http://192.168.1.98/api/getSeccionesLocal", {
+        .post(Constantes.RUTA_API + "getSeccionesLocal", {
           local: nLocal,
         })
         .then(function (response) {
@@ -112,7 +113,7 @@ function MonitorSecciones(props) {
     } else {
       return (
         <div>
-          <HeaderImg src={"http://192.168.1.98/" + local.logo}></HeaderImg>
+          <HeaderImg src={Constantes.RUTA_SERVIDOR + +local.logo}></HeaderImg>
           <Titulo>{local.nombre}</Titulo>
         </div>
       );

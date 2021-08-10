@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import Constantes from "../Constantes/constantes";
 
 const Contenedor = styled.div`
   font-family: "Parking";
@@ -65,7 +66,7 @@ function Monitor() {
 
   useEffect(() => {
     axios
-      .get("http://192.168.1.98/api/locales")
+      .get(Constantes.RUTA_API + "locales")
       .then(function (response) {
         setLocales(response.data.data);
         setCargado(true);
@@ -75,7 +76,7 @@ function Monitor() {
       });
 
     axios
-      .get("http://192.168.1.98/api/temas")
+      .get(Constantes.RUTA_API + "temas")
       .then(function (response) {
         setTemas(response.data.data);
       })
@@ -102,7 +103,7 @@ function Monitor() {
       }}
     >
       <HeaderImg
-        src={"http://192.168.1.98/" + local.logo}
+        src={Constantes.RUTA_SERVIDOR + local.logo}
         alt={local.nombre}
       ></HeaderImg>
       <h2>{local.nombre}</h2>

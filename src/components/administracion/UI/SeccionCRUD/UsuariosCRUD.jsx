@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useRef } from "react";
+import Constantes from "../../../Constantes/constantes";
 
 const Contenedor = styled.div`
   display: ${(props) => props.visible};
@@ -58,7 +59,7 @@ function UsuariosCRUD(props) {
 
   function registrarUsuario() {
     axios
-      .post("http://192.168.1.98/api/registrarse", {
+      .post(Constantes.RUTA_API + "registrarse", {
         name: name.current.value,
         email: email.current.value,
         password: password.current.value,

@@ -12,6 +12,7 @@ import {
 
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import Constantes from "../../Constantes/constantes";
 
 const Contenedor = styled.div`
   display: ${(props) => props.visible};
@@ -59,7 +60,7 @@ function SeccionAnalisis(props) {
 
   function obtenerMediaSeccionesDia() {
     axios
-      .post("http://192.168.1.98/api/getSeccionesDia", {
+      .post(Constantes.RUTA_API + "getSeccionesDia", {
         fecha: fecha.current.value,
       })
       .then(function (response) {
@@ -77,7 +78,7 @@ function SeccionAnalisis(props) {
 
   function obtenerMediaSeccion() {
     axios
-      .post("http://192.168.1.98/api/getSeccionDia", {
+      .post(Constantes.RUTA_API + "getSeccionDia", {
         fecha: fecha.current.value,
         id: idSeccion.current.value,
       })
@@ -96,7 +97,7 @@ function SeccionAnalisis(props) {
 
   function obtenerAforoDeterminado() {
     axios
-      .post("http://192.168.1.98/api/getAforoDeterminado", {
+      .post(Constantes.RUTA_API + "getAforoDeterminado", {
         fecha: fecha.current.value,
         seccion: idSeccion.current.value,
         hora: hora.current.value,
@@ -111,7 +112,7 @@ function SeccionAnalisis(props) {
 
   function obtenerMaximosDia() {
     axios
-      .post("http://192.168.1.98/api/getMaximosDia", {
+      .post(Constantes.RUTA_API + "api/getMaximosDia", {
         fecha: fecha.current.value,
       })
       .then(function (response) {
@@ -129,7 +130,7 @@ function SeccionAnalisis(props) {
 
   function obtenerMaximosDiaSeccion() {
     axios
-      .post("http://192.168.1.98/api/getMaximoDiaSeccion", {
+      .post(Constantes.RUTA_API + "api/getMaximoDiaSeccion", {
         fecha: fecha.current.value,
         seccion: idSeccion.current.value,
       })
@@ -148,7 +149,7 @@ function SeccionAnalisis(props) {
 
   function obtenerMaximosSeccion() {
     axios
-      .post("http://192.168.1.98/api/getMaximosSeccion", {
+      .post(Constantes.RUTA_API + "api/getMaximosSeccion", {
         fecha: fecha.current.value,
         seccion: idSeccion.current.value,
       })

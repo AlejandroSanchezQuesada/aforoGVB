@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Constantes from "../../Constantes/constantes";
 
 const Contenedor = styled.div`
   width: 100%;
@@ -44,11 +45,11 @@ const Button = styled.button`
 `;
 
 const ButtonMenos = styled(Button)`
-  background-color: #fde406;
-  border: solid #fde406 1px;
+  background-color: #bd231e;
+  border: solid #bd231e 1px;
   &:active {
     transition: 0.3s;
-    background-color: #a39301;
+    background-color: #801b18;
   }
 `;
 
@@ -100,7 +101,7 @@ function ContadorHibrido() {
 
   useEffect(() => {
     axios
-      .get("http://192.168.1.98/api/secciones")
+      .get(Constantes.RUTA_API + "secciones")
       .then(function (response) {
         let arrayData = [];
         // handle success
@@ -154,7 +155,7 @@ function ContadorHibrido() {
   function incrementarHibrido() {
     /* Sumo Izquierda */
     axios
-      .post("http://192.168.1.98/api/incrementarContador", {
+      .post(Constantes.RUTA_API + "incrementarContador", {
         id: idSeccionIzquierda,
       })
       .then(function (response) {
@@ -167,7 +168,7 @@ function ContadorHibrido() {
     /* Resto Derecha */
 
     axios
-      .post("http://192.168.1.98/api/decrementarContador", {
+      .post(Constantes.RUTA_API + "decrementarContador", {
         id: idSeccionDerecha,
       })
       .then(function (response) {
@@ -181,7 +182,7 @@ function ContadorHibrido() {
     /* Resto Izquierda */
 
     axios
-      .post("http://192.168.1.98/api/decrementarContador", {
+      .post(Constantes.RUTA_API + "decrementarContador", {
         id: idSeccionIzquierda,
       })
       .then(function (response) {
@@ -194,7 +195,7 @@ function ContadorHibrido() {
     /* Sumo Derecha */
 
     axios
-      .post("http://192.168.1.98/api/incrementarContador", {
+      .post(Constantes.RUTA_API + "incrementarContador", {
         id: idSeccionDerecha,
       })
       .then(function (response) {

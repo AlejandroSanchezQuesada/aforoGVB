@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { readFileSync as fs } from "fs";
+import Constantes from "../../../Constantes/constantes";
 
 const Contenedor = styled.div`
   display: ${(props) => props.visible};
@@ -173,7 +174,7 @@ function SeccionesCRUD(props) {
   function getSecciones() {
     // Make a request for a user with a given ID
     axios
-      .get("http://192.168.1.98/api/secciones")
+      .get(Constantes.RUTA_API + "secciones")
       .then(function (response) {
         let arrayData = [];
         // handle success
@@ -202,7 +203,7 @@ function SeccionesCRUD(props) {
 
       // Post the form, just make sure to set the 'Content-Type' header
       const res = await axios.post(
-        "http://192.168.1.98/api/secciones",
+        Constantes.RUTA_API + "secciones",
         formData,
         {
           headers: {
@@ -229,7 +230,7 @@ function SeccionesCRUD(props) {
 
       // Post the form, just make sure to set the 'Content-Type' header
       const res = await axios.post(
-        "http://192.168.1.98/api/secciones/update",
+        Constantes.RUTA_API + "secciones/update",
         formData,
         {
           headers: {
@@ -244,7 +245,7 @@ function SeccionesCRUD(props) {
 
   function eliminarSeccion() {
     axios
-      .delete("http://192.168.1.98/api/secciones/1", {
+      .delete(Constantes.RUTA_API + "secciones/1", {
         id: idSeccion,
       })
       .then(function (response) {

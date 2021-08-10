@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Constantes from "../../Constantes/constantes";
 
 const Contenedor = styled.div`
   width: 100%;
@@ -93,7 +94,7 @@ function ContadorMultiple() {
 
   useEffect(() => {
     axios
-      .get("http://192.168.1.98/api/secciones")
+      .get(Constantes.RUTA_API + "secciones")
       .then(function (response) {
         let arrayData = [];
         // handle success
@@ -146,7 +147,7 @@ function ContadorMultiple() {
 
   function incrementarContadorIzquierda() {
     axios
-      .post("http://192.168.1.98/api/incrementarContador", {
+      .post(Constantes.RUTA_API + "incrementarContador", {
         id: idSeccionIzquierda,
       })
       .then(function (response) {
@@ -158,7 +159,7 @@ function ContadorMultiple() {
   }
   function decrementarContadorIzquierda() {
     axios
-      .post("http://192.168.1.98/api/decrementarContador", {
+      .post(Constantes.RUTA_API + "decrementarContador", {
         id: idSeccionIzquierda,
       })
       .then(function (response) {
@@ -171,7 +172,7 @@ function ContadorMultiple() {
 
   function incrementarContadorDerecha() {
     axios
-      .post("http://192.168.1.98/api/incrementarContador", {
+      .post(Constantes.RUTA_API + "incrementarContador", {
         id: idSeccionDerecha,
       })
       .then(function (response) {
@@ -183,7 +184,7 @@ function ContadorMultiple() {
   }
   function decrementarContadorDerecha() {
     axios
-      .post("http://192.168.1.98/api/decrementarContador", {
+      .post(Constantes.RUTA_API + "decrementarContador", {
         id: idSeccionDerecha,
       })
       .then(function (response) {

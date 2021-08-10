@@ -2,8 +2,8 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import styled from "styled-components";
+import Constantes from "../../Constantes/constantes";
 
 const ContenedorPrincipal = styled.div`
   width: 100%;
@@ -86,7 +86,7 @@ function SeccionContadores(props) {
       localStorage.getItem("token");
 
     axios
-      .get("http://192.168.1.98/api/secciones")
+      .get(Constantes.RUTA_API + "secciones")
       .then(function (response) {
         // handle success
         let data = response.data.data;

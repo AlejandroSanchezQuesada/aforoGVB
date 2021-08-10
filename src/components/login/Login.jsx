@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useRef } from "react";
 import { useHistory, Link } from "react-router-dom";
+import Constantes from "../Constantes/constantes";
 
 const Contenedor = styled.div`
   font-family: "ataper";
@@ -75,7 +76,7 @@ function Login() {
 
   function logearse() {
     axios
-      .post("http://192.168.1.98/api/login", {
+      .post(Constantes.RUTA_API + "login", {
         email: email.current.value,
         password: password.current.value,
       })

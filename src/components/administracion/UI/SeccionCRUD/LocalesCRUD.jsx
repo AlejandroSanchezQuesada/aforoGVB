@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { readFileSync as fs } from "fs";
+import Constantes from "../../../Constantes/constantes";
 
 const Contenedor = styled.div`
   display: ${(props) => props.visible};
@@ -172,7 +173,7 @@ function LocalesCRUD(props) {
   function getLocales() {
     // Make a request for a user with a given ID
     axios
-      .get("http://192.168.1.98/api/locales")
+      .get(Constantes.RUTA_API + "locales")
       .then(function (response) {
         let arrayData = [];
         // handle success
@@ -198,15 +199,11 @@ function LocalesCRUD(props) {
       formData.append("nombre", nombreLocal.current.value);
 
       // Post the form, just make sure to set the 'Content-Type' header
-      const res = await axios.post(
-        "http://192.168.1.98/api/locales",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await axios.post(Constantes.RUTA_API + "locales", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       alert(res.statusText);
     }
@@ -224,7 +221,7 @@ function LocalesCRUD(props) {
 
       // Post the form, just make sure to set the 'Content-Type' header
       const res = await axios.post(
-        "http://192.168.1.98/api/locales/update",
+        Constantes.RUTA_API + "locales/update",
         formData,
         {
           headers: {
@@ -239,7 +236,7 @@ function LocalesCRUD(props) {
 
   function eliminarLocal() {
     axios
-      .delete("http://192.168.1.98/api/locales/1", {
+      .delete(Constantes.RUTA_API + "locales/1", {
         id: idLocal,
       })
       .then(function (response) {

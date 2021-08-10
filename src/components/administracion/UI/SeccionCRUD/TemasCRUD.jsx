@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useRef, useState } from "react";
+import Constantes from "../../../Constantes/constantes";
 
 const Contenedor = styled.div`
   display: ${(props) => props.visible};
@@ -91,7 +92,7 @@ function TemasCRUD(props) {
 
   function crearTema() {
     axios
-      .post("http://192.168.1.98/api/temas", {
+      .post(Constantes.RUTA_API + "temas", {
         nombre: nombre.current.value,
         colorPrincipal: colorPrincipal,
         colorSecundario: colorSecundario,
