@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Constantes from "../../Constantes/constantes";
@@ -93,6 +93,33 @@ function Contador(props) {
       });
   }
 
+  function actualizarContador() {
+    axios
+      .get(Constantes.RUTA_API + "secciones")
+      .then(function (response) {
+        // handle success
+        let data = response.data.data;
+
+        data.forEach((dato) => {
+          if (dato.id == location.state.seccionId) {
+            setAforo(dato.aforo);
+          }
+        });
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      actualizarContador();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  });
+
   return (
     <Contenedor>
       <div>
@@ -109,6 +136,7 @@ function Contador(props) {
           <span className="material-icons-outlined">add</span>
         </Button>
       </GridBotones>
+
       <Link to={"/panel"}>Volver atrás</Link>
     </Contenedor>
   );

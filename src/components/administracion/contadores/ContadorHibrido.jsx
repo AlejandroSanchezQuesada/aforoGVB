@@ -206,6 +206,37 @@ function ContadorHibrido() {
       });
   }
 
+  function actualizarContador() {
+    axios
+      .get(Constantes.RUTA_API + "secciones")
+      .then(function (response) {
+        // handle success
+        let data = response.data.data;
+
+        data.forEach((dato) => {
+          if (dato.id == idSeccionDerecha) {
+            setAforoSeccionDerecha(dato.aforo);
+          }
+
+          if (dato.id == idSeccionIzquierda) {
+            setaforoSeccionIzquierda(dato.aforo);
+          }
+        });
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      actualizarContador();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  });
+
   return (
     <Contenedor>
       <ContenedorSeccion>
