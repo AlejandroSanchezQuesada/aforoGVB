@@ -153,6 +153,8 @@ function ContadorHibrido() {
   }
 
   function incrementarHibrido() {
+    vibrar();
+
     /* Sumo Izquierda */
     axios
       .post(Constantes.RUTA_API + "incrementarContador", {
@@ -179,6 +181,7 @@ function ContadorHibrido() {
       });
   }
   function decrementarHibrido() {
+    vibrar();
     /* Resto Izquierda */
 
     axios
@@ -236,6 +239,20 @@ function ContadorHibrido() {
 
     return () => clearInterval(interval);
   });
+
+  function vibrar() {
+    // enable vibration support
+    navigator.vibrate =
+      navigator.vibrate ||
+      navigator.webkitVibrate ||
+      navigator.mozVibrate ||
+      navigator.msVibrate;
+
+    if (navigator.vibrate) {
+      // vibration API supported
+      navigator.vibrate(500);
+    }
+  }
 
   return (
     <Contenedor>

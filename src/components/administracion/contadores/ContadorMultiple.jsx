@@ -146,6 +146,8 @@ function ContadorMultiple() {
   }
 
   function incrementarContadorIzquierda() {
+    vibrar();
+
     axios
       .post(Constantes.RUTA_API + "incrementarContador", {
         id: idSeccionIzquierda,
@@ -158,6 +160,8 @@ function ContadorMultiple() {
       });
   }
   function decrementarContadorIzquierda() {
+    vibrar();
+
     axios
       .post(Constantes.RUTA_API + "decrementarContador", {
         id: idSeccionIzquierda,
@@ -171,6 +175,8 @@ function ContadorMultiple() {
   }
 
   function incrementarContadorDerecha() {
+    vibrar();
+
     axios
       .post(Constantes.RUTA_API + "incrementarContador", {
         id: idSeccionDerecha,
@@ -183,6 +189,8 @@ function ContadorMultiple() {
       });
   }
   function decrementarContadorDerecha() {
+    vibrar();
+
     axios
       .post(Constantes.RUTA_API + "decrementarContador", {
         id: idSeccionDerecha,
@@ -225,6 +233,20 @@ function ContadorMultiple() {
 
     return () => clearInterval(interval);
   });
+
+  function vibrar() {
+    // enable vibration support
+    navigator.vibrate =
+      navigator.vibrate ||
+      navigator.webkitVibrate ||
+      navigator.mozVibrate ||
+      navigator.msVibrate;
+
+    if (navigator.vibrate) {
+      // vibration API supported
+      navigator.vibrate(500);
+    }
+  }
 
   return (
     <Contenedor>

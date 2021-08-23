@@ -69,6 +69,8 @@ function Contador(props) {
   const [aforo, setAforo] = useState(location.state.seccionAforo);
 
   function incrementarContador() {
+    vibrar();
+
     axios
       .post(Constantes.RUTA_API + "incrementarContador", {
         id: location.state.seccionId,
@@ -81,6 +83,8 @@ function Contador(props) {
       });
   }
   function decrementarContador() {
+    vibrar();
+
     axios
       .post(Constantes.RUTA_API + "decrementarContador", {
         id: location.state.seccionId,
@@ -119,6 +123,20 @@ function Contador(props) {
 
     return () => clearInterval(interval);
   });
+
+  function vibrar() {
+    // enable vibration support
+    navigator.vibrate =
+      navigator.vibrate ||
+      navigator.webkitVibrate ||
+      navigator.mozVibrate ||
+      navigator.msVibrate;
+
+    if (navigator.vibrate) {
+      // vibration API supported
+      navigator.vibrate(500);
+    }
+  }
 
   return (
     <Contenedor>
